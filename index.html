@@ -218,7 +218,7 @@
         </div>
 
         <div class="controls">
-            <button class="btn" onclick="toggleMessage()">Открыть послание</button>
+            <button class="btn" id="toggleBtn" onclick="toggleMessage()">Открыть послание</button>
             <button class="btn btn-secondary" onclick="changeHeartColor()">Сменить цвет</button>
         </div>
 
@@ -273,12 +273,15 @@
 
         function toggleMessage() {
             const message = document.getElementById('hiddenMessage');
+            const btn = document.getElementById('toggleBtn');
             messageVisible = !messageVisible;
             
             if (messageVisible) {
                 message.classList.add('show');
+                btn.textContent = 'Закрыть послание';
             } else {
                 message.classList.remove('show');
+                btn.textContent = 'Открыть послание';
             }
         }
 
