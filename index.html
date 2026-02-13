@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днём Святого Валентина, Настя! ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Animated background hearts */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .heart-bg .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 0.3);
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -50px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                bottom: 100vh;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #d63447;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .main-heart {
+            font-size: 100px;
+            color: #ff4757;
+            margin: 30px 0;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .main-heart:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px #ff4757);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.15);
+            }
+        }
+
+        .message {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            line-height: 2;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .message p {
+            margin: 20px 0;
+        }
+
+        .highlight {
+            color: #d63447;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .divider {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff4757, transparent);
+            margin: 30px auto;
+        }
+
+        /* Interactive button */
+        .love-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .love-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+        }
+
+        .love-button:active {
+            transform: translateY(-2px);
+        }
+
+        /* Floating hearts on click */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            font-size: 40px;
+            z-index: 9999;
+            animation: float-up 3s ease-out forwards;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) rotate(180deg);
+            }
+        }
+
+        /* Secret message reveal */
+        .secret-message {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .secret-message.show {
+            opacity: 1;
+            transform: scale(1);
+            max-height: 500px;
+        }
+
+        .secret-message h2 {
+            color: #d63447;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .secret-message p {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .main-heart {
+                font-size: 70px;
+            }
+
+            .message {
+                font-size: 1.1rem;
+            }
+
+            .love-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .decoration.top-left {
+            top: 20px;
+            left: 20px;
+            font-size: 50px;
+            color: #ff4757;
+        }
+
+        .decoration.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            font-size: 50px;
+            color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <div class="decoration top-left">❤️</div>
+        <div class="decoration bottom-right">💕</div>
+
+        <h1>С Днём Святого Валентина!</h1>
+        
+        <div class="main-heart" onclick="heartClick(this)">❤️</div>
+
+        <div class="divider"></div>
+
+        <div class="message">
+            <p>Дорогая <span class="highlight">Настя</span>,</p>
+            <p>В этот особенный день я хочу сказать тебе,<br>
+            как много ты значишь для меня.</p>
+            <p>Ты делаешь каждый день ярче,<br>
+            каждую минуту особенной,<br>
+            каждое мгновение незабываемым.</p>
+            <p>Спасибо, что ты есть в моей жизни! 💖</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="love-button" onclick="revealSecret()">
+            Нажми на моё сердце ❤️
+        </button>
+
+        <div class="secret-message" id="secretMessage">
+            <h2>Моей любимой Насте ✨</h2>
+            <p>
+                Ты — самая лучшая девушка на свете! 🌟<br>
+                Твоя улыбка освещает мой мир,<br>
+                твой смех — самая прекрасная мелодия,<br>
+                а твоё присутствие рядом — величайший подарок.<br><br>
+                Я обещаю всегда заботиться о тебе,<br>
+                поддерживать тебя и любить тебя всем сердцем! 💝<br><br>
+                С любовью, твой навсегда! 💕
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating background hearts
+        function createBackgroundHearts() {
+            const heartBg = document.getElementById('heartBg');
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💞'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heartBg.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 15000);
+            }, 1000);
+        }
+
+        // Main heart click effect
+        function heartClick(element) {
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💞', '💓', '💘'];
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    
+                    const rect = element.getBoundingClientRect();
+                    heart.style.left = (rect.left + rect.width / 2 - 20) + 'px';
+                    heart.style.top = (rect.top + rect.height / 2 - 20) + 'px';
+                    
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        // Reveal secret message
+        let messageRevealed = false;
+        function revealSecret() {
+            const secretMessage = document.getElementById('secretMessage');
+            
+            if (!messageRevealed) {
+                secretMessage.classList.add('show');
+                messageRevealed = true;
+                
+                // Create celebration effect
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        createRandomHeart();
+                    }, i * 50);
+                }
+            }
+        }
+
+        // Create random floating hearts
+        function createRandomHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = ['❤️', '💕', '💖', '💗', '💝', '💞'][Math.floor(Math.random() * 6)];
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        createBackgroundHearts();
+
+        // Click anywhere to create hearts
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON' && !e.target.classList.contains('main-heart')) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = '💖';
+                heart.style.left = e.clientX - 20 + 'px';
+                heart.style.top = e.clientY - 20 + 'px';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
